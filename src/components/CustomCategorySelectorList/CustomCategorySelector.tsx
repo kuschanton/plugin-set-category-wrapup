@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {CategorySelect, CustomCategorySelectorComponentStyles} from './CustomCategorySelectorStyles'
 import {StateToProps, DispatchToProps} from './CustomCategorySelector.Container'
+import {withTaskContext} from '@twilio/flex-ui'
 
 interface OwnProps {
   // Props passed directly to the component
@@ -20,16 +21,41 @@ const CustomCategorySelector = (props: Props) => {
   return (
     <CustomCategorySelectorComponentStyles>
       <div>Select category for this task:</div>
-      <CategorySelect id='categorySelect' onChange={handleChange} disabled={props.submitted}>
-        <option value='other'>Other</option>
-        <option value='prepaid'>Prepaid</option>
-        <option value='contract'>Contract</option>
+      <CategorySelect id="categorySelect" onChange={handleChange} disabled={props.submitted}>
+        <option value="other">Other</option>
+        <option value="prepaid">Prepaid</option>
+        <option value="contract">Contract</option>
       </CategorySelect>
       <button onClick={props.submit} disabled={props.submitted}>
         Submit
       </button>
+      <StateLoader loadState={props.loadState}/>
     </CustomCategorySelectorComponentStyles>
   )
 }
 
 export default CustomCategorySelector
+
+class StateLoaderComponent extends React.Component<StateLoaderProps> {
+  constructor(props: StateLoaderProps) {
+    super(props)
+  }
+
+  render() {
+    this.props.loadState(this.props.task.taskSid)
+    console.log('StateLoaderComponent props', this.props)
+    console.log('StateLoaderComponent props', this.props.task)
+    console.log('StateLoaderComponent props', this.props.task.taskSid)
+    return null
+  }
+}
+
+type StateLoaderProps = {
+  task: {
+    taskSid: string
+  },
+  loadState: (taskSid: string) => void
+}
+
+const StateLoader =
+  withTaskContext<StateLoaderProps, typeof StateLoaderComponent>(StateLoaderComponent)

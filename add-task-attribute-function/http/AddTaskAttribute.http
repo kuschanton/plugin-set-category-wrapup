@@ -1,0 +1,10 @@
+POST http://localhost:3000/add-task-attribute
+Content-Type: application/json
+
+{
+  "taskSid": "WT65f97999e007761cfb84b28ba08a9631",
+  "attributeKey":"test",
+  "attributeValue": "testValue"
+}
+
+###

@@ -10,6 +10,7 @@ export interface StateToProps {
 }
 
 export interface DispatchToProps {
+  loadState: (taskSid: string) => void;
   submit: () => void;
   selectCategory: (value: string) => void;
 }
@@ -19,6 +20,7 @@ const mapStateToProps = (state: AppState): StateToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchToProps => ({
+  loadState: bindActionCreators(Actions.loadState, dispatch),
   submit: bindActionCreators(Actions.submit, dispatch),
   selectCategory: bindActionCreators(Actions.selectCategory, dispatch),
 });
