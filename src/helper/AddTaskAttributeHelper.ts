@@ -1,4 +1,4 @@
-export const addTaskAttribute = (token: string, taskSid: string, key: string, value: string) => {
+export const addTaskAttribute = (token: string, taskSid: string, key: string, value: any) => {
   const body = {
     Token: token,
     taskSid: taskSid,

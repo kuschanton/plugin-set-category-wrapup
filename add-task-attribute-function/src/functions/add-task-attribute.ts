@@ -11,7 +11,7 @@ type AddAttributeToTaskEvent = {
   Token: string,
   taskSid: string,
   attributeKey: string,
-  attributeValue: string
+  attributeValue: any
 }
 
 type AddAttributeToTaskContext = {
@@ -50,6 +50,8 @@ export const handler: ServerlessFunctionSignature<AddAttributeToTaskContext, Add
       .fetch()
     let newAttributes = JSON.parse(task.attributes)
 
+    // Will blindly override the attribute, if it is an object and you want to do deep merge
+    // some more work here is needed
     newAttributes = Object.assign(newAttributes, {
       [attributeKey]: attributeValue
     })

@@ -1,7 +1,6 @@
 import {Action} from './index'
 import {Manager} from '@twilio/flex-ui'
 import {addTaskAttribute} from '../helper/AddTaskAttributeHelper'
-import {CustomCategoryName} from '../constants/CustomCategoryName'
 
 const ACTION_LOAD_STATE = 'LOAD_STATE'
 const ACTION_SUBMIT = 'SUBMIT'
@@ -41,7 +40,14 @@ export function reduce(state: CustomCategorySelectorState = initialState, action
     case ACTION_SUBMIT: {
       console.log('Submitted category:', state)
       const manager = Manager.getInstance()
-      addTaskAttribute(manager.user.token, state.taskSid!!, CustomCategoryName, state.selectedValue)
+      addTaskAttribute(
+        manager.user.token,
+        state.taskSid!!,
+        'conversations',
+        {
+          conversation_attribute_1: state.selectedValue
+        }
+      )
       return {
         ...state,
         submitted: true,
