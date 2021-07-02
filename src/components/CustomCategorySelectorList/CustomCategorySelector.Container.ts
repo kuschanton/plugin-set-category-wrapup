@@ -10,7 +10,7 @@ export interface StateToProps {
 }
 
 export interface DispatchToProps {
-  loadState: (taskSid: string) => void;
+  loadState: (taskSid: string, hasCustomCategory: boolean) => void;
   submit: () => void;
   selectCategory: (value: string) => void;
 }

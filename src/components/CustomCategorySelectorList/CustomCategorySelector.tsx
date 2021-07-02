@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {CategorySelect, CustomCategorySelectorComponentStyles} from './CustomCategorySelectorStyles'
 import {StateToProps, DispatchToProps} from './CustomCategorySelector.Container'
 import {withTaskContext} from '@twilio/flex-ui'
+import {CustomCategoryName} from '../../constants/CustomCategoryName'
 
 interface OwnProps {
   // Props passed directly to the component
@@ -42,19 +43,18 @@ class StateLoaderComponent extends React.Component<StateLoaderProps> {
   }
 
   render() {
-    this.props.loadState(this.props.task.taskSid)
-    console.log('StateLoaderComponent props', this.props)
+    this.props.loadState(this.props.task.taskSid, !!this.props.task.attributes[CustomCategoryName])
     console.log('StateLoaderComponent props', this.props.task)
-    console.log('StateLoaderComponent props', this.props.task.taskSid)
     return null
   }
 }
 
 type StateLoaderProps = {
   task: {
-    taskSid: string
+    taskSid: string,
+    attributes: any
   },
-  loadState: (taskSid: string) => void
+  loadState: (taskSid: string, hasCustomCategory: boolean) => void
 }
 
 const StateLoader =
